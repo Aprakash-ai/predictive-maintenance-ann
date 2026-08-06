@@ -1,7 +1,9 @@
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
 
 def preprocess_data(df):
+
     columns_to_drop = [
         "UDI",
         "Product ID",
@@ -10,14 +12,16 @@ def preprocess_data(df):
         "PWF",
         "OSF",
         "RNF"
-    ] # dropping the unwanted columns
-    df = df.drop(columns=columns_to_drop)
+    ]
+    df = df.drop(columns=columns_to_drop) # unwanted columns are removed
+
     df = pd.get_dummies(
         df,
         columns=["Type"],
         dtype=int
-    ) #encoding the categorical feature using One-Hot Encoding
-    # seperate features and target
+    ) # categorical features are encoded using One-Hot Encoding
+
+    # now separating the features and target
     X = df.drop(columns=["Machine failure"])
     y = df["Machine failure"]
 

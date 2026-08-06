@@ -1,28 +1,31 @@
 from src.data_loader import load_dataset
 from src.preprocessing import preprocess_data
+from src.train import split_data
 
 
 def main():
 
-    # Load Dataset
     df = load_dataset()
 
-    # Preprocess Dataset
     X, y = preprocess_data(df)
 
-    print("=" * 60)
-    print("INPUT FEATURES (X)")
-    print("=" * 60)
-    print(X.head())
+    X_train, X_test, y_train, y_test = split_data(X, y)
 
-    print("\nShape of X:", X.shape)
+    print("=" * 70)
+    print("TRAINING SET")
+    print("=" * 70)
 
-    print("\n" + "=" * 60)
-    print("TARGET VARIABLE (y)")
-    print("=" * 60)
-    print(y.head())
+    print("X_train :", X_train.shape)
+    print("y_train :", y_train.shape)
 
-    print("\nShape of y:", y.shape)
+    print()
+
+    print("=" * 70)
+    print("TESTING SET")
+    print("=" * 70)
+
+    print("X_test  :", X_test.shape)
+    print("y_test  :", y_test.shape)
 
 
 if __name__ == "__main__":
