@@ -35,3 +35,14 @@ def scale_features(X_train, X_test):
     ) # applying  scaling to test data
 
     return X_train, X_test, scaler
+
+def train_model(model, X_train, y_train):
+    history = model.fit(
+        X_train,
+        y_train,
+        epochs = 30,
+        batch_size = 32,
+        validation_split = 0.2,
+        verbose = 1,
+    )
+    return history
