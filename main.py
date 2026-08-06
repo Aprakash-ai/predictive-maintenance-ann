@@ -4,25 +4,25 @@ from src.preprocessing import preprocess_data
 
 def main():
 
+    # Load Dataset
     df = load_dataset()
 
-    print("=" * 60)
-    print("ORIGINAL DATASET")
-    print("=" * 60)
-    print(df.head())
+    # Preprocess Dataset
+    X, y = preprocess_data(df)
 
-    df = preprocess_data(df)
+    print("=" * 60)
+    print("INPUT FEATURES (X)")
+    print("=" * 60)
+    print(X.head())
+
+    print("\nShape of X:", X.shape)
 
     print("\n" + "=" * 60)
-    print("PREPROCESSED DATASET")
+    print("TARGET VARIABLE (y)")
     print("=" * 60)
-    print(df.head())
+    print(y.head())
 
-    print("\nColumns:")
-    print(df.columns.tolist())
-
-    print("\nShape:")
-    print(df.shape)
+    print("\nShape of y:", y.shape)
 
 
 if __name__ == "__main__":

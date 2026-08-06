@@ -17,5 +17,8 @@ def preprocess_data(df):
         columns=["Type"],
         dtype=int
     ) #encoding the categorical feature using One-Hot Encoding
+    # seperate features and target
+    X = df.drop(columns=["Machine failure"])
+    y = df["Machine failure"]
 
-    return df
+    return X, y
