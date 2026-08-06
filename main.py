@@ -31,6 +31,25 @@ def main():
 
     print("\nTesting Shape :", X_test.shape)
 
+    print("\n" + "=" * 70)
+    print("PREPROCESSED DATASET VERIFICATION")
+    print("=" * 70)
+
+    print("\nMissing Values in X_train:")
+    print(X_train.isnull().sum())
+
+    print("\nMissing Values in X_test:")
+    print(X_test.isnull().sum())
+
+    print("\nData Types:")
+    print(X_train.dtypes)
+
+    print("\nTarget Classes:")
+    print(sorted(y_train.unique()))
+
+    print("\nFeature Statistics:")
+    print(X_train.describe())
+
 
 if __name__ == "__main__":
     main()
