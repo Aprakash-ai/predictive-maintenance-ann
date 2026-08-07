@@ -1,6 +1,6 @@
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-
+# from sklearn.utils.class_weight import compute_class_weight
 
 def split_data(X, y):
     X_train, X_test, y_train, y_test = train_test_split(
@@ -37,12 +37,31 @@ def scale_features(X_train, X_test):
     return X_train, X_test, scaler
 
 def train_model(model, X_train, y_train):
+    """
+    import numpy as np
+    # calculate class weights
+
+    #class_weights = compute_class_weight(
+        class_weight="balanced",
+        classes=np.unique(y_train),
+        y=y_train
+    )
+
+    class_weights = dict(enumerate(class_weights))
+
+    print("\n" + "=" * 70)
+    print("CLASS WEIGHTS")
+    print("=" * 70)
+    print(class_weights)
+    """
+
     history = model.fit(
         X_train,
         y_train,
         epochs = 30,
         batch_size = 32,
         validation_split = 0.2,
+        # class_weight = class_weights,  only when class weights are added for better recall
         verbose = 1,
     )
     return history
