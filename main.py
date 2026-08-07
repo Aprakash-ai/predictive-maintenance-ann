@@ -1,31 +1,54 @@
 import os
 import joblib
 import matplotlib.pyplot as plt
+
 from src.data_loader import load_dataset
 from src.preprocessing import preprocess_data
 from src.train import split_data, scale_features, train_model
 from src.model import build_model
 from src.evaluate import evaluate_model
+from src.predict import predict_failure
 
 
-def main():
+def train_pipeline():
+    """
+    Complete ANN Training Pipeline
+    """
 
-    # load dataset
+    # ==========================================================
+    # Load Dataset
+    # ==========================================================
+
     df = load_dataset()
 
-    # preprocess dataset
+    # ==========================================================
+    # Data Preprocessing
+    # ==========================================================
+
     X, y = preprocess_data(df)
 
-    # data  split
+    # ==========================================================
+    # Train-Test Split
+    # ==========================================================
+
     X_train, X_test, y_train, y_test = split_data(X, y)
 
-    # feature scaling
+    # ==========================================================
+    # Feature Scaling
+    # ==========================================================
+
     X_train, X_test, scaler = scale_features(X_train, X_test)
 
+    # ==========================================================
+    # Build ANN Model
+    # ==========================================================
 
     model = build_model(input_dim=X_train.shape[1])
 
-    # train ANN
+    # ==========================================================
+    # Train ANN Model
+    # ==========================================================
+
     history = train_model(
         model,
         X_train,
@@ -70,13 +93,14 @@ def main():
 
     plt.show()
 
-    # saved model and scaler
+    # ==========================================================
+    # Save Model and Scaler
+    # ==========================================================
+
     os.makedirs("saved_models", exist_ok=True)
 
-    # Save trained ANN model
     model.save("saved_models/predictive_maintenance_ann.keras")
 
-    # Save fitted StandardScaler
     joblib.dump(
         scaler,
         "saved_models/scaler.pkl"
@@ -88,11 +112,39 @@ def main():
     print("ANN Model : saved_models/predictive_maintenance_ann.keras")
     print("Scaler    : saved_models/scaler.pkl")
 
-    y_pred = evaluate_model(
+    # ==========================================================
+    # Evaluate Model
+    # ==========================================================
+
+    evaluate_model(
         model,
         X_test,
         y_test
-    ) # evaluate model
+    )
+
+def main():
+
+    print("\n" + "=" * 70)
+    print("      PREDICTIVE MAINTENANCE USING ANN")
+    print("=" * 70)
+
+    print("1. Train New ANN Model")
+    print("2. Predict Machine Failure")
+    print("3. Exit")
+
+    choice = input("\nEnter your choice (1-3): ")
+
+    if choice == "1":
+        train_pipeline()
+
+    elif choice == "2":
+        predict_failure()
+
+    elif choice == "3":
+        print("\nThank you for using Predictive Maintenance ANN.")
+
+    else:
+        print("\nInvalid Choice! Please run the program again.")
 
 
 if __name__ == "__main__":
