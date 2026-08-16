@@ -49,6 +49,11 @@ def build_xgboost():
     # xgboost classifier
 
     model = XGBClassifier(
+        n_estimators=200,
+        max_depth=5,
+        learning_rate=0.1,
+        subsample=0.8,
+        colsample_bytree=1.0,
         random_state=42,
         eval_metric="logloss"
     )
