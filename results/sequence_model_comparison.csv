@@ -1,0 +1,4 @@
+Model,Accuracy,Failure_Precision,Failure_Recall,Failure_F1
+RNN,0.8969,0.06,0.28,0.10
+LSTM,0.8504,0.06,0.49,0.11
+GRU,0.8599,0.06,0.44,0.11
