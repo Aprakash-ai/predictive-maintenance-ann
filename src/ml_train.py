@@ -6,6 +6,7 @@ from src.train import split_data, scale_features
 #from src.ml_models import build_random_forest
 #from src.ml_models import build_svm
 from src.ml_models import build_xgboost
+#from src.ml_models import build_xgboost_balanced
 from sklearn.metrics import (
     accuracy_score,
     confusion_matrix,
@@ -52,10 +53,30 @@ def main():
     #model = build_svm()
     model = build_xgboost()
 
-    # ==========================================================
-    # Train model
-    # ==========================================================
+    '''
+    # calculate class imbalance ratio
+    class_counts = y_train.value_counts()
 
+    majority_class = class_counts.max()
+    minority_class = class_counts.min()
+
+    scale_pos_weight = majority_class / minority_class
+
+    print("\n" + "=" * 70)
+    print("XGBOOST CLASS IMBALANCE HANDLING")
+    print("=" * 70)
+
+    print(f"Majority class samples : {majority_class}")
+    print(f"Minority class samples : {minority_class}")
+    print(f"Scale Pos Weight       : {scale_pos_weight:.2f}")
+
+    # build balanced xgboost
+    model = build_xgboost_balanced(
+        scale_pos_weight=scale_pos_weight
+    )
+    '''
+
+    # train model
     print("\n" + "=" * 70)
     print("XGBOOST TRAINING")
     print("=" * 70)

@@ -54,3 +54,14 @@ def build_xgboost():
     )
 
     return model
+
+def build_xgboost_balanced(scale_pos_weight):
+
+    # xgboost classifier with class imbalance handling
+    model = XGBClassifier(
+        random_state=42,
+        eval_metric="logloss",
+        scale_pos_weight=scale_pos_weight
+    )
+
+    return model
