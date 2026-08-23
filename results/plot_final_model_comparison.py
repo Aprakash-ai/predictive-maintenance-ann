@@ -1,17 +1,17 @@
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
-
-from pathlib import Path
 
 
 def main():
 
     print("\n" + "=" * 70)
-    print("SEQUENCE MODEL COMPARISON")
+    print("FINAL MODEL COMPARISON")
     print("=" * 70)
 
     # ----------------------------------------------------------
-    # Project paths
+    # Paths
     # ----------------------------------------------------------
 
     project_root = Path(__file__).resolve().parent.parent
@@ -25,75 +25,53 @@ def main():
     )
 
     # ----------------------------------------------------------
-    # Load comparison results
+    # Load data
     # ----------------------------------------------------------
 
     csv_path = (
         results_dir
-        / "sequence_model_comparison.csv"
+        / "final_model_comparison.csv"
     )
 
     df = pd.read_csv(csv_path)
 
-    print(df.to_string(index=False))
-
     # ----------------------------------------------------------
-    # Accuracy comparison
+    # Select important models
     # ----------------------------------------------------------
 
-    plt.figure(figsize=(10, 6))
+    selected_models = [
+        "Optimized XGBoost",
+        "RNN",
+        "LSTM",
+        "GRU",
+        "Attention-LSTM",
+        "Transformer"
+    ]
 
-    plt.bar(
-        df["Model"],
-        df["Accuracy"]
-    )
-
-    plt.xlabel("Model")
-    plt.ylabel("Accuracy")
-    plt.title(
-        "Sequence and Advanced Deep Learning Model Accuracy"
-    )
-
-    plt.ylim(0, 1)
-
-    plt.xticks(rotation=20)
-
-    plt.grid(
-        axis="y",
-        linestyle="--",
-        alpha=0.5
-    )
-
-    plt.tight_layout()
-
-    plt.savefig(
-        graphs_dir / "sequence_model_accuracy.png",
-        dpi=300,
-        bbox_inches="tight"
-    )
-
-    plt.close()
+    comparison_df = df[
+        df["Model"].isin(selected_models)
+    ].copy()
 
     # ----------------------------------------------------------
-    # Failure Recall comparison
+    # Failure Recall
     # ----------------------------------------------------------
 
     plt.figure(figsize=(10, 6))
 
     plt.bar(
-        df["Model"],
-        df["Failure_Recall"]
+        comparison_df["Model"],
+        comparison_df["Failure_Recall"]
     )
 
     plt.xlabel("Model")
     plt.ylabel("Failure Recall")
     plt.title(
-        "Failure Detection Recall Comparison"
+        "Final Failure Detection Recall Comparison"
     )
 
     plt.ylim(0, 1)
 
-    plt.xticks(rotation=20)
+    plt.xticks(rotation=25)
 
     plt.grid(
         axis="y",
@@ -104,7 +82,8 @@ def main():
     plt.tight_layout()
 
     plt.savefig(
-        graphs_dir / "sequence_model_failure_recall.png",
+        graphs_dir
+        / "final_failure_recall_comparison.png",
         dpi=300,
         bbox_inches="tight"
     )
@@ -112,25 +91,25 @@ def main():
     plt.close()
 
     # ----------------------------------------------------------
-    # Failure F1 comparison
+    # Failure F1
     # ----------------------------------------------------------
 
     plt.figure(figsize=(10, 6))
 
     plt.bar(
-        df["Model"],
-        df["Failure_F1"]
+        comparison_df["Model"],
+        comparison_df["Failure_F1"]
     )
 
     plt.xlabel("Model")
     plt.ylabel("Failure F1-Score")
     plt.title(
-        "Failure Detection F1-Score Comparison"
+        "Final Failure Detection F1 Comparison"
     )
 
     plt.ylim(0, 1)
 
-    plt.xticks(rotation=20)
+    plt.xticks(rotation=25)
 
     plt.grid(
         axis="y",
@@ -141,40 +120,26 @@ def main():
     plt.tight_layout()
 
     plt.savefig(
-        graphs_dir / "sequence_model_failure_f1.png",
+        graphs_dir
+        / "final_failure_f1_comparison.png",
         dpi=300,
         bbox_inches="tight"
     )
 
     plt.close()
 
-    # ----------------------------------------------------------
-    # Completion
-    # ----------------------------------------------------------
-
     print("\n" + "=" * 70)
-    print("GRAPHS GENERATED")
+    print("FINAL GRAPHS GENERATED")
     print("=" * 70)
 
     print(
-        "\nAccuracy graph:"
-    )
-    print(
-        graphs_dir / "sequence_model_accuracy.png"
+        graphs_dir
+        / "final_failure_recall_comparison.png"
     )
 
     print(
-        "\nFailure Recall graph:"
-    )
-    print(
-        graphs_dir / "sequence_model_failure_recall.png"
-    )
-
-    print(
-        "\nFailure F1 graph:"
-    )
-    print(
-        graphs_dir / "sequence_model_failure_f1.png"
+        graphs_dir
+        / "final_failure_f1_comparison.png"
     )
 
 

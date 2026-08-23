@@ -1,0 +1,11 @@
+Model,Category,Accuracy,Failure_Recall,Failure_F1
+Logistic Regression,Traditional ML,0.9675,0.10,0.18
+Decision Tree,Traditional ML,0.9785,0.68,0.68
+Random Forest,Traditional ML,0.9805,0.49,0.63
+SVM,Traditional ML,0.9720,0.21,0.33
+Optimized XGBoost,Traditional ML,0.9890,0.74,0.82
+RNN,Sequence Deep Learning,0.8969,0.28,0.10
+LSTM,Sequence Deep Learning,0.8504,0.49,0.11
+GRU,Sequence Deep Learning,0.8599,0.44,0.11
+Attention-LSTM,Advanced Deep Learning,0.9184,0.33,0.14
+Transformer,Advanced Deep Learning,0.8964,0.74,0.22
