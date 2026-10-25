@@ -10,3 +10,8 @@ __pycache__/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Environment variables
+.env
+.env.*
+!.env.example

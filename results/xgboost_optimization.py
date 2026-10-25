@@ -1,4 +1,6 @@
 import pandas as pd
+import joblib
+from pathlib import Path
 
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import (
@@ -70,6 +72,14 @@ def main():
 
     #best model
     best_model = grid_search.best_estimator_
+
+    model_dir = Path(__file__).resolve().parent.parent / "saved_models"
+    model_dir.mkdir(parents=True, exist_ok=True)
+
+    model_path = model_dir / "optimized_xgboost.pkl"
+    joblib.dump(best_model, model_path)
+
+    print(f"Optimized model saved at: {model_path}")
 
     # test prediction
     y_pred = best_model.predict(
